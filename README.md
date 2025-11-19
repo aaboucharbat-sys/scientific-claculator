@@ -121,80 +121,123 @@ float cosine(double x, int terms) {
 #include <stdio.h>
 #include "MYLIB_H.h"
 
-
-
-
 int main() {
-    float firstNumber, secondNumber, result,c;
-   
-   
-
-
-  
-    char operator [] = {1,2,3,4,5,6,0}; 
-    
-   
-
-
-  
-
-
+    float firstNumber, secondNumber; 
+    float   result;
+    char operator,c;
+    double pi = 3.14159265359 ; 
     printf("=========================================\n");
     printf("         TERMINAL CALCULATOR              \n");
     printf("=========================================\n");
-    printf(" [+] +  Addition\n");
-    printf(" [-] -  Subtraction\n");
-    printf(" [*] *  Multiplication\n");
-    printf(" [/] /  Division\n");
-    printf(" [^] ^  Power (x^y)\n");
-    printf(" [√] sqrt  Square Root\n");
-    printf(" [p] 10 power of x  \n");
-
+    printf(" [+] Addition\n");
+    printf(" [-] Subtraction\n");
+    printf(" [*] Multiplication\n");
+    printf(" [/] Division\n");
+    printf(" [^] Power (x^y)\n");
+    printf(" [j] Square of x  (x²)\n");
+    printf(" [p] 10 power of x\n");
+    printf(" [f] the factoorial  of x\n");
+    printf(" [o] x power of mines one \n");
+    printf(" [k] it's mean 10 power of x \n"); 
+    printf(" [v] it's means absulte value of x \n"); 
+    printf(" [s] it's means square root of x \n");
     printf("-----------------------------------------\n");
     printf(" [E] Exit\n");
     printf("=========================================\n");
 
-    printf("\nSelect an option: ");
-    scanf("%d", &operator); 
- 
-   switch (operator) {
-    case (operator ='+'):
-         result= sum(firstNumber,secondNumber);
-    break; 
-    
-    case (operator='-'):
-        result= subtract(firstNumber,secondNumber); 
-    break ; 
-    case (operator='*'): 
-        result = multiply(firstNumber,secondNumber); 
-    break ; 
-    case (operator ='/'):
-        if (secondNumber==0) {
-            printf("we cant devide by 0 ");
+    a: printf("\nSelect an option: ");
+    scanf(" %c", &operator);
 
-        } 
-        else {
-            result = divide(firstNumber,secondNumber); 
-
-        }
-    break ; 
-    case (operator ='^') :
-        result = Power(firstNumber,secondNumber); 
-    break ; 
-    case (operator='√'):
-
-    break ; 
-    case (operator = 'p'):
-        result = power_of_ten(firstNumber) ; 
-    break ; 
-   0
+    if (operator == 'E') {
+        printf("Exiting...\n");
+        return 0;
     }
-   
-  
-    printf ("the result = %d",result); 
+// if the user enter one of the operator that need an only number 
+    if (operator != 'j' && operator != 'p' && operator != 'f' && operator != 'o' && operator != 'k' && operator != 'v' && operator != 's' && operator!= 'c') {
+        printf("Enter first number: ");
+        scanf("%f", &firstNumber);
+        printf("Enter second number: ");
+        scanf("%f", &secondNumber);
+    } else {
+        printf("Enter number: ");
+        scanf("%f", &firstNumber);
+    }
 
-   return 0 ; 
-  
+    switch (operator) {
+        case '+': // addition 
+            result = sum(firstNumber, secondNumber);
+            break;
+
+        case '-': // i think it's doesn't need a comment 
+            result = subtract(firstNumber, secondNumber);
+            break;
+
+        case '*':  // multiply 
+            result = multiply(firstNumber, secondNumber);
+            break;
+
+        case '/':
+            if (secondNumber == 0) {
+                printf("Error: Division by zero is not allowed.\n");
+                return 1;
+            } else {
+                result = divide(firstNumber, secondNumber);
+            }
+            break;
+
+        case '^': // first number power of the second number 
+            result = power(firstNumber, secondNumber);
+            break;
+
+        case 'j': // sqrt
+            result = squart(firstNumber);
+            break;
+
+        case 'p': // 10^x
+            result = power_of_ten(firstNumber);
+            break;
+        case 'f' : //factorial of x 
+            result = factorial(firstNumber); 
+            break; 
+        case 'o' :  // the o means the x power of mines one 
+            result = power_of_mines_one(firstNumber); 
+            break; 
+        case 'k' : // the char k means ten power of x 
+            result = power_of_ten(firstNumber);
+            break; 
+        case 'v':
+            result = absolute_value(firstNumber);
+            break;
+        case 's':
+            if (firstNumber<0){
+                printf("tere is no a square root of an negative number "); 
+            }
+            result =  square_root(firstNumber);  
+            break ; 
+      /** case 'c' : 
+            result = cosine(firstNumber); 
+            break; */
+        default:     // when the user enter undefine operator 
+            printf("Invalid operator.\n");
+            return 1;
+    }
+
+    printf("The result = %f \n", result); // write the result 
+
+    printf("type y to do repeat :  ");  // if the user want to do another operation
+    getchar(); // this instuction is to skip the null erorr 
+    scanf("%c", &c); 
+    
+    if (c=='y') {
+        
+        goto a ; // this line make all the code run again 
+    }
+
+    
+
+    return 0; // return 0 means all the code is succes excuting that what i think
+}
+
 }
 
 
